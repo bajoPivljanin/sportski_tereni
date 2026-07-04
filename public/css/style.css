@@ -1,0 +1,49 @@
+.navbar {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    background-color: transparent !important;
+}
+.navbar ul li a{
+    color: white;
+}
+.navbar ul li a:hover{
+    color: #cccccc;
+}
+.navbar-brand{
+    letter-spacing: 3px;
+    font-size: 20pt;
+}
+
+.hero-section {
+    background-image: url('../../img/hero-bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.hero-overlay {
+    background-color: #000000;
+    opacity: 0.5;
+}
+
+.hero-title {
+    font-size: 54px;
+    font-style: italic;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.hero-btn {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 5px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.hero-btn:hover {
+    color: #cccccc;
+    border-color: #cccccc;
+}
