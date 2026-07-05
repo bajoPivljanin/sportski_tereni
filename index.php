@@ -62,6 +62,45 @@ require_once 'inc/header.php';
 </section>
 </main>
 
+<section class="guide-section">
+    <div class="container">
+        
+        <h2 class="guide-heading">
+            <span class="guide-icon">?</span> Kako rezervisati teren
+        </h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="guide-step">
+                    <h3 class="guide-step-title">1. Izaberite teren</h3>
+                    <p class="guide-step-text">
+                        Posetite stranicu Tereni gde možete pregledati sve dostupne opcije. Istražite različite sportove i tipove terena kako biste pronašli onaj koji najbolje odgovara vašim potrebama i preferencijama.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="guide-step">
+                    <h3 class="guide-step-title">2. Odaberite termin</h3>
+                    <p class="guide-step-text">
+                        Kada izaberete željeni teren, prikazaće vam se lista dostupnih termina. Odaberite datum i vreme koji vam najviše odgovaraju i uklapaju se u vaš raspored.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="guide-step">
+                    <h3 class="guide-step-title">3. Potvrdite rezervaciju</h3>
+                    <p class="guide-step-text">
+                        Nakon izbora termina, potrebno je samo da potvrdite rezervaciju. Proces je brz i jednostavan, a vaš termin će biti odmah rezervisan bez dodatnog čekanja.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
 <?php
 
 ?>
