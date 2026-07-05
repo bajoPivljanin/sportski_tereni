@@ -4,15 +4,17 @@
     z-index: 10;
     background-color: transparent !important;
 }
+.navbar .as{
+    text-decoration: none;
+    color: white;
+        letter-spacing: 3px;
+    font-size: 20pt;
+}
 .navbar ul li a{
     color: white;
 }
 .navbar ul li a:hover{
     color: #cccccc;
-}
-.navbar-brand{
-    letter-spacing: 3px;
-    font-size: 20pt;
 }
 
 .hero-section {
@@ -21,6 +23,10 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
+    display: flex;         
+    align-items: center;  
+    color: #ffffff;       
+    position: relative;
 }
 
 .hero-overlay {
@@ -36,6 +42,9 @@
 }
 
 .hero-btn {
+    text-transform: uppercase;
+    font-weight: 600;         
+    text-decoration: none;
     color: #ffffff;
     border-bottom: 2px solid #ffffff;
     padding-bottom: 5px;
@@ -46,4 +55,103 @@
 .hero-btn:hover {
     color: #cccccc;
     border-color: #cccccc;
+}
+.hero-section a{
+    color: white;
+    transition: .3s;
+}
+
+.offer-section {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.offer-heading {
+    font-size: 32px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #000000;
+}
+
+.offer-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: #1e3f20; 
+}
+
+.offer-subheading {
+    color: #6c757d;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+
+.sport-card {
+    height: 500px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.basketball-bg {
+    background-image: url('../../img/basketball.jpg');
+}
+
+.football-bg {
+    background-image: url('../../img/football.jpg');
+}
+
+.tennis-bg {
+    background-image: url('../../img/tennis.jpg');
+}
+
+.padel-bg {
+    background-image: url('../../img/padel.jpg');
+}
+
+
+.sport-overlay {
+    position: absolute;
+    top: 0;
+    start: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sport-title {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+
+.sport-btn {
+    color: #ffffff;
+    background-color: #1e3f20;
+    text-decoration: none;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.sport-btn:hover {
+    background-color: #142b16;
+    color: #ffffff;
 }
