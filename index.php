@@ -101,8 +101,53 @@ require_once 'inc/header.php';
     </div>
 </section>
 
+<div id="register-overlay" class="register-overlay">
+    
+    <div class="register-modal-box">
+        
+        <div class="register-modal-header">
+            <h2 class="register-form-title">Kreiraj nalog</h2>
+            <button type="button" id="register-close" class="register-close-btn">&times;</button>
+        </div>
+        
+        <div class="register-modal-body">
+            <form action="register-process.php" method="POST" class="register-form">
+                
+                <div class="form-group mb-3">
+                    <label for="first-name" class="form-label">Ime</label>
+                    <input placeholder="Unesite ime..." type="text" id="first-name" name="first_name" class="form-control register-input" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="last-name" class="form-label">Prezime</label>
+                    <input placeholder="Unesite prezime..." type="text" id="last-name" name="last_name" class="form-control register-input" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email adresa</label>
+                    <input placeholder="Unesite E-mail..." type="email" id="email" name="email" class="form-control register-input" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="phone" class="form-label">Telefon</label>
+                    <input placeholder="Unesite broj telefona..." type="tel" id="phone" name="phone" class="form-control register-input" required>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="password" class="form-label">Lozinka</label>
+                    <input placeholder="Unesite lozinku..." type="password" id="password" name="password" class="form-control register-input" required>
+                </div>
+
+                <button type="submit" class="register-submit-btn">Registruj se</button>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
 <?php
 
 ?>
 </body>
+<script src="public/js/script.js"></script>
 </html>

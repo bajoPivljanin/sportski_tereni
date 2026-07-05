@@ -33,7 +33,7 @@
                     </li>
                 </ul>
                 <div class="navbar-nav">
-                    <a class="btn btn-outline-light" href="register.php">Register</a>
+                    <a href="#" class="nav-link register-trigger" id="register-trigger" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
                 </div>
             </div>
         </div>
