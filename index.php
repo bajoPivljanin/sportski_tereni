@@ -174,6 +174,117 @@ require_once 'inc/header.php';
         </div>
     </div>
 
+    <main class="container my-5">
+    <section class="pricing-section">
+        
+        <h2 class="pricing-heading">Cenovnik iznajmljivanja</h2>
+        <div class="pricing-underline"></div>
+
+        <ul class="nav nav-tabs pricing-tabs justify-content-center" id="pricingTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link pricing-tab-btn" id="min30-tab" data-bs-toggle="tab" data-bs-target="#min30" type="button" role="tab" aria-controls="min30" aria-selected="false">30 minuta</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link pricing-tab-btn active" id="min60-tab" data-bs-toggle="tab" data-bs-target="#min60" type="button" role="tab" aria-controls="min60" aria-selected="true">60 minuta</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link pricing-tab-btn" id="min90-tab" data-bs-toggle="tab" data-bs-target="#min90" type="button" role="tab" aria-controls="min90" aria-selected="false">90 minuta</button>
+            </li>
+        </ul>
+
+        <div class="tab-content pricing-content" id="pricingTabContent">
+            
+            <div class="tab-pane fade" id="min30" role="tabpanel" aria-labelledby="min30-tab">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Fudbalski teren</h3>
+                            <p class="price-card-amount">4.500 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Košarkaški teren</h3>
+                            <p class="price-card-amount">2.500 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Teniski teren</h3>
+                            <p class="price-card-amount">1.200 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Padel teren</h3>
+                            <p class="price-card-amount">900 rsd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade show active" id="min60" role="tabpanel" aria-labelledby="min60-tab">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Fudbalski teren</h3>
+                            <p class="price-card-amount">9.000 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Košarkaški teren</h3>
+                            <p class="price-card-amount">5.000 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Teniski teren</h3>
+                            <p class="price-card-amount">2.000 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Padel teren</h3>
+                            <p class="price-card-amount">1.500 rsd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="min90" role="tabpanel" aria-labelledby="min90-tab">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Fudbalski teren</h3>
+                            <p class="price-card-amount">13.000 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Košarkaški teren</h3>
+                            <p class="price-card-amount">7.000 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Teniski teren</h3>
+                            <p class="price-card-amount">2.800 rsd</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="price-card">
+                            <h3 class="price-card-title">Padel teren</h3>
+                            <p class="price-card-amount">2.100 rsd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
 <?php
 require_once 'inc/footer.php';
 ?>
