@@ -1,4 +1,4 @@
-
+//register form
 const registerTrigger = document.getElementById('register-trigger');
 const registerOverlay = document.getElementById('register-overlay');
 const registerClose = document.getElementById('register-close');
@@ -6,16 +6,18 @@ const registerClose = document.getElementById('register-close');
 registerTrigger.addEventListener('click', function(event) {
     event.preventDefault(); 
     registerOverlay.classList.add('active');
+    document.body.classList.add('no-scroll');
 });
 registerClose.addEventListener('click', function() {
-    registerOverlay.classList.remove('active'); 
+    registerOverlay.classList.remove('active');
+    document.body.classList.remove('no-scroll');
 });
 registerOverlay.addEventListener('click', function(event) {
     if (event.target === registerOverlay) {
         registerOverlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
     }
 });
-//register form
 document.addEventListener("DOMContentLoaded", function() {
     const registerForm = document.querySelector(".register-form");
 
@@ -61,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const responseData = await response.json();
 
                 if (response.status === 201) {
-                    alert("Uspešno ste se registrovali! Proverite vaš email sandučić za aktivacioni link.");
+                    alert("Uspešno ste se registrovali! Proverite vaš email za aktivacioni link.");
 
                     registerForm.reset();
 
@@ -70,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         overlay.style.display = "none";
                     }
                 } else {
-                    alert("Greška: " + responseData.message);
+                    alert("Greska: " + responseData.message);
                 }
             } catch (error) {
-                console.error("Greška prilikom komunikacije sa API-jem:", error);
-                alert("Došlo je do greške na serveru. Pokušajte ponovo kasnije.");
+                console.error("Greska prilikom komunikacije sa APIjem:", error);
+                alert("Doslo je do greske na serveru. Pokusajte ponovo kasnije.");
             } finally {
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
@@ -86,6 +88,83 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closeBtn) {
         closeBtn.addEventListener("click", function() {
             document.getElementById("register-overlay").style.display = "none";
+        });
+    }
+});
+
+//login form
+document.addEventListener('DOMContentLoaded', function() {
+    const loginTrigger = document.getElementById('login-trigger');
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginClose = document.getElementById('login-close');
+
+    if (loginTrigger && loginOverlay && loginClose) {
+        loginTrigger.addEventListener('click', function(event) {
+            event.preventDefault();
+            loginOverlay.classList.add('active');
+            document.body.classList.add('no-scroll');
+        });
+
+        loginClose.addEventListener('click', function() {
+            loginOverlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+
+        loginOverlay.addEventListener('click', function(event) {
+            if (event.target === loginOverlay) {
+                loginOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
+    const loginForm = document.getElementById('login-form');
+    const errorMessageDiv = document.getElementById('login-error-message');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (errorMessageDiv) {
+                errorMessageDiv.style.display = 'none';
+                errorMessageDiv.innerText = '';
+            }
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    if (errorMessageDiv) {
+                        errorMessageDiv.innerText = data.message;
+                        errorMessageDiv.style.display = 'block';
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            } catch (error) {
+                console.error("Greška prilikom konekcije:", error);
+                if (errorMessageDiv) {
+                    errorMessageDiv.innerText = "Došlo je do greške na serveru. Pokušajte ponovo.";
+                    errorMessageDiv.style.display = 'block';
+                } else {
+                    alert("Došlo je do greške na serveru.");
+                }
+            }
         });
     }
 });
