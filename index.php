@@ -146,8 +146,5 @@ require_once 'inc/header.php';
 </div>
 
 <?php
-
+    require_once 'inc/footer.php';
 ?>
-</body>
-<script src="public/js/script.js"></script>
-</html>
