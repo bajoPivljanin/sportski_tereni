@@ -27,7 +27,7 @@ require_once 'inc/header.php';
                     <div class="sport-card basketball-bg">
                         <div class="sport-overlay">
                             <h3 class="sport-title">Košarkaški</h3>
-                            <a href="#" class="sport-btn">Ponuda</a>
+                            <a href="courts.php" class="sport-btn">Ponuda</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ require_once 'inc/header.php';
                     <div class="sport-card football-bg">
                         <div class="sport-overlay">
                             <h3 class="sport-title">Fudbalski</h3>
-                            <a href="#" class="sport-btn">Ponuda</a>
+                            <a href="courts.php" class="sport-btn">Ponuda</a>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ require_once 'inc/header.php';
                     <div class="sport-card tennis-bg">
                         <div class="sport-overlay">
                             <h3 class="sport-title">Teniski</h3>
-                            <a href="#" class="sport-btn">Ponuda</a>
+                            <a href="courts.php" class="sport-btn">Ponuda</a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ require_once 'inc/header.php';
                     <div class="sport-card padel-bg">
                         <div class="sport-overlay">
                             <h3 class="sport-title">Padel</h3>
-                            <a href="#" class="sport-btn">Ponuda</a>
+                            <a href="courts.php" class="sport-btn">Ponuda</a>
                         </div>
                     </div>
                 </div>
