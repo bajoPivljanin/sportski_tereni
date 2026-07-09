@@ -648,3 +648,23 @@ body {
     background-color: #ffebee;
     color: #c62828;
 }
+
+
+@media (max-width: 768px) {
+    .navbar.navbar-transparent{
+            background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+    .navbar-nav #login-trigger, #register-trigger{
+        border: none;
+        font-weight: bold;
+    }
+
+    .reservation-table-box {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .reservation-table {
+        min-width: 800px; 
+    }
+}

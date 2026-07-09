@@ -267,7 +267,7 @@
     color: #1e3f20;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .courts-page-section {
         padding-top: 60pt;
     }
