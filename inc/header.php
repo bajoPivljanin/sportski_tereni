@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark<?php echo !empty($transparentNav) ? ' navbar-transparent' : ''; ?>">
     <div class="container">
         <a class="as" href="index.php">TERENI</a>
 

@@ -1,4 +1,5 @@
 <?php
+$transparentNav = true;
 require_once 'inc/header.php';
 ?>
 
