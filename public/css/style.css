@@ -445,7 +445,6 @@ body {
 .main-footer {
     background-color: #1B2F19;
     padding: 70px 0 30px 0;  
-    margin-top: 60px;
     width: 100%;
 }
 
@@ -542,4 +541,110 @@ body {
     opacity: 0.5;
     margin-bottom: 0;
     letter-spacing: 0.5px;
+}
+
+/*moje_rezervacije*/
+
+.reservation-section {
+    padding: 150pt 0;
+    background-color: #ffffff;
+    min-height: 60vh; 
+}
+
+.reservation-header {
+    margin-bottom: 40px;
+}
+
+.reservation-main-title {
+    color: #1e3f20;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.reservation-subtitle {
+    color: #666666;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.reservation-table-box {
+    background-color: #ffffff;
+    border: 1px solid #ebeeeb;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(30, 63, 32, 0.03);
+    overflow: hidden;
+}
+
+.reservation-table {
+    margin-bottom: 0 !important;
+    border-collapse: separate;
+}
+
+.reservation-table thead th {
+    background-color: #f4f7f4;
+    color: #1e3f20;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 20px;
+    border-bottom: 2px solid #e0e6e0;
+}
+
+.reservation-table tbody td {
+    padding: 18px 20px;
+    vertical-align: middle;
+    color: #444444;
+    font-size: 15px;
+    border-bottom: 1px solid #f0f3f0;
+}
+
+.reservation-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.reservation-table tbody tr:hover {
+    background-color: #fafcfa;
+}
+
+.reservation-code {
+    font-weight: bold;
+    color: #1e3f20;
+}
+
+.reservation-court-name {
+    font-weight: 500;
+}
+
+.reservation-note {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-active {
+    background-color: rgba(163, 198, 164, 0.25);
+    color: #1e3f20;
+}
+
+.status-pending {
+    background-color: #fff4e5;
+    color: #b26a00;
+}
+
+.status-cancelled {
+    background-color: #ffebee;
+    color: #c62828;
 }

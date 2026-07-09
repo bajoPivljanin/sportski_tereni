@@ -1,5 +1,5 @@
 .court-detail-section {
-    padding-top: 75pt;
+    padding: 110pt 0pt;
     background-color: #ffffff;
 }
 
@@ -267,7 +267,6 @@
     color: #1e3f20;
 }
 
-/* Prilagođavanje liste terena za telefone */
 @media (max-width: 767.98px) {
     .courts-page-section {
         padding-top: 60pt;
