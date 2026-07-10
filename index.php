@@ -133,7 +133,36 @@ require_once 'inc/header.php';
             </div>
         </div>
     </div>
+    <div id="forgot-password-overlay" class="login-overlay">
+        <div class="login-modal-box">
+            <div class="login-modal-header">
+                <h2 class="login-form-title">Reset lozinke</h2>
+                <button type="button" id="forgot-password-close" class="login-close-btn">&times;</button>
+            </div>
 
+            <div class="login-modal-body">
+                <form id="forgot-password-form" class="login-form">
+
+                    <div id="forgot-password-message" class="alert" style="display: none; font-size: 14px; padding: 10px;"></div>
+
+                    <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">
+                        Unesite email adresu vašeg naloga i poslaćemo vam link za resetovanje lozinke.
+                    </p>
+
+                    <div class="form-group mb-4">
+                        <label for="forgot-email" class="form-label">Email adresa</label>
+                        <input placeholder="Unesite E-mail..." type="email" id="forgot-email" name="email" class="form-control login-input" required>
+                    </div>
+
+                    <button type="submit" id="forgot-submit-btn" class="login-submit-btn">Pošalji link</button>
+
+                    <div class="form-group mt-4 text-center">
+                        <a href="#" id="back-to-login-trigger" class="forgot-password-link">Nazad na prijavu</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="register-overlay" class="register-overlay">
         <div class="register-modal-box">
             <div class="register-modal-header">

@@ -144,5 +144,91 @@ class User {
         session_destroy();
         return true;
     }
+    public function sendPasswordResetEmail($email, $resetLink) {
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'bajagaaa9@gmail.com';
+            $mail->Password   = 'ysso klbx vlzo nexf';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->CharSet    = 'UTF-8';
+
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+
+            $mail->setFrom('bajagaaa9@gmail.com', 'Sportski Tereni');
+            $mail->addAddress($email);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Resetovanje lozinke - Sportski Tereni';
+
+            $mail->Body    = "
+                <h3>Zahtev za resetovanje lozinke</h3>
+                <p>Poštovani,</p>
+                <p>Dobili smo zahtev za promenu lozinke na vašem nalogu. Ako niste vi podneli ovaj zahtev, slobodno ignorišite ovu poruku.</p>
+                <p>Da biste resetovali lozinku, kliknite na sledeći link (link važi 1 sat):</p>
+                <p><a href='{$resetLink}' style='display: inline-block; padding: 10px 20px; color: white; background-color: #1b4332; text-decoration: none; border-radius: 5px;'>Resetuj lozinku</a></p>
+                <br>
+                <p>Ukoliko dugme ne radi, prekopirajte sledeći link u vaš pretraživač:</p>
+                <p>{$resetLink}</p>
+                <br>
+                <p>Srdačan pozdrav,<br>Tim Sportski Tereni</p>
+            ";
+
+            $mail->AltBody = "Poštovani,\n\nDobili smo zahtev za promenu lozinke. Da biste resetovali lozinku, prekopirajte sledeći link u vaš pregledač:\n\n{$resetLink}\n\nLink važi 1 sat.\n\nSrdačan pozdrav,\nTim Sportski Tereni";
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function generatePasswordResetToken($email) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $stmt->execute(['email' => $email]);
+
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+
+        $token = bin2hex(random_bytes(32));
+        // this token expires after 1 hour
+        $expire = date("Y-m-d H:i:s", strtotime("+1 hour"));
+        $sql = "UPDATE users SET reset_token = :token, reset_token_expire = :expire WHERE email = :email";
+        $updateStmt = $this->pdo->prepare($sql);
+        $updateStmt->execute(['token' => $token, 'expire' => $expire, 'email' => $email]);
+        return $token;
+    }
+    public function resetPassword($token, $newPassword) {
+        // find the user with this token and ensure the token hasnt expired
+        $sql = "SELECT email FROM users WHERE reset_token = :token AND reset_token_expire > NOW() LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['token' => $token]);
+
+        if ($stmt->rowCount() == 0) {
+            return false; // Token is expired or isn't  available
+        }
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // update password and clear the tokent to prevent reuse
+        $updateSql = "UPDATE users SET password = :password, reset_token = NULL, reset_token_expire = NULL WHERE email = :email";
+        $updateStmt = $this->pdo->prepare($updateSql);
+
+        return $updateStmt->execute([
+            'password' => $hashedPassword,
+            'email' => $row['email']
+        ]);
+    }
 }
-?>

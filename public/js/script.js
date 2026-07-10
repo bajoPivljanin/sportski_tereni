@@ -168,3 +168,93 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// modal for forgot password
+const forgotPasswordTrigger = document.getElementById('forgot-password-trigger');
+const forgotPasswordOverlay = document.getElementById('forgot-password-overlay');
+const forgotPasswordClose = document.getElementById('forgot-password-close');
+const backToLoginTrigger = document.getElementById('back-to-login-trigger');
+const loginOverlay = document.getElementById('login-overlay');
+
+// click on forgot password
+if (forgotPasswordTrigger && forgotPasswordOverlay && loginOverlay) {
+    forgotPasswordTrigger.addEventListener('click', function(event) {
+        event.preventDefault();
+        loginOverlay.classList.remove('active'); // Gasi login modal
+        forgotPasswordOverlay.classList.add('active'); // Pali reset modal
+    });
+}
+
+// close on X
+if (forgotPasswordClose) {
+    forgotPasswordClose.addEventListener('click', function() {
+        forgotPasswordOverlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
+}
+
+// back to login form
+if (backToLoginTrigger) {
+    backToLoginTrigger.addEventListener('click', function(event) {
+        event.preventDefault();
+        forgotPasswordOverlay.classList.remove('active');
+        loginOverlay.classList.add('active');
+    });
+}
+
+// Klik na crnu pozadinu
+if (forgotPasswordOverlay) {
+    forgotPasswordOverlay.addEventListener('click', function(event) {
+        if (event.target === forgotPasswordOverlay) {
+            forgotPasswordOverlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    });
+}
+
+// reset password
+const forgotPasswordForm = document.getElementById('forgot-password-form');
+const forgotMessageDiv = document.getElementById('forgot-password-message');
+const forgotSubmitBtn = document.getElementById('forgot-submit-btn');
+
+if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        //sending request and locking button
+        forgotMessageDiv.style.display = 'none';
+        forgotMessageDiv.className = 'alert';
+        forgotSubmitBtn.innerText = 'Slanje...';
+        forgotSubmitBtn.disabled = true;
+
+        const email = document.getElementById('forgot-email').value;
+
+        try {
+            const response = await fetch('api/forgot-password.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                forgotMessageDiv.innerText = data.message;
+                forgotMessageDiv.classList.add('alert-success');
+                forgotMessageDiv.style.display = 'block';
+                forgotPasswordForm.reset();
+            } else {
+                forgotMessageDiv.innerText = data.message || "Došlo je do greške.";
+                forgotMessageDiv.classList.add('alert-danger');
+                forgotMessageDiv.style.display = 'block';
+            }
+        } catch (error) {
+            console.error("Greška pri slanju reseta:", error);
+            forgotMessageDiv.innerText = "Greška na serveru. Pokušajte ponovo.";
+            forgotMessageDiv.classList.add('alert-danger');
+            forgotMessageDiv.style.display = 'block';
+        } finally {
+            forgotSubmitBtn.innerText = 'Pošalji link';
+            forgotSubmitBtn.disabled = false;
+        }
+    });
+}
