@@ -20,7 +20,7 @@ if (!empty($data->email)) {
 
         if ($isSent) {
             http_response_code(200);
-            echo json_encode(["message" => "Link za resetovanje lozinke je poslat na vaš email.", "debug_link" => $resetLink]);
+            echo json_encode(["message" => "Link za resetovanje lozinke je poslat na vaš email."]);
         } else {
             http_response_code(500);
             echo json_encode(["message" => "Greška pri slanju emaila. Molimo pokušajte kasnije."]);

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../config/config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -48,13 +49,13 @@ class User {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'bajagaaa9@gmail.com';
-            $mail->Password   = 'ysso klbx vlzo nexf';
+            $mail->Username   = Config::MAIL_USERNAME;
+            $mail->Password   = Config::MAIL_PASSWORD;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
             $mail->CharSet    = 'UTF-8';
 
-            $mail->setFrom('bajagaaa9@gmail.com', 'Sportski Centar');
+            $mail->setFrom(Config::MAIL_USERNAME, 'Sportski Centar');
             $mail->addAddress($recipient_email, $first_name);
 
             $mail->isHTML(true);
@@ -151,8 +152,8 @@ class User {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'bajagaaa9@gmail.com';
-            $mail->Password   = 'ysso klbx vlzo nexf';
+            $mail->Username   = Config::MAIL_USERNAME;
+            $mail->Password   = Config::MAIL_PASSWORD;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
             $mail->CharSet    = 'UTF-8';
@@ -165,7 +166,7 @@ class User {
                 )
             );
 
-            $mail->setFrom('bajagaaa9@gmail.com', 'Sportski Tereni');
+            $mail->setFrom(Config::MAIL_USERNAME, 'Sportski Tereni');
             $mail->addAddress($email);
 
             $mail->isHTML(true);
