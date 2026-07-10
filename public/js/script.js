@@ -3,21 +3,23 @@ const registerTrigger = document.getElementById('register-trigger');
 const registerOverlay = document.getElementById('register-overlay');
 const registerClose = document.getElementById('register-close');
 
-registerTrigger.addEventListener('click', function(event) {
-    event.preventDefault(); 
-    registerOverlay.classList.add('active');
-    document.body.classList.add('no-scroll');
-});
-registerClose.addEventListener('click', function() {
-    registerOverlay.classList.remove('active');
-    document.body.classList.remove('no-scroll');
-});
-registerOverlay.addEventListener('click', function(event) {
-    if (event.target === registerOverlay) {
+if (registerTrigger && registerOverlay && registerClose) {
+    registerTrigger.addEventListener('click', function (event) {
+        event.preventDefault();
+        registerOverlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+    });
+    registerClose.addEventListener('click', function () {
         registerOverlay.classList.remove('active');
         document.body.classList.remove('no-scroll');
-    }
-});
+    });
+    registerOverlay.addEventListener('click', function (event) {
+        if (event.target === registerOverlay) {
+            registerOverlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    });
+}
 document.addEventListener("DOMContentLoaded", function() {
     const registerForm = document.querySelector(".register-form");
 
@@ -258,3 +260,36 @@ if (forgotPasswordForm) {
         }
     });
 }
+// code for filters on courts page
+// Kod za filtere na stranici terena
+document.addEventListener("DOMContentLoaded", function() {
+    const filterButtons = document.querySelectorAll('.court-filter-btn');
+    const courtItems = document.querySelectorAll('.court-item');
+
+    if (filterButtons.length > 0 && courtItems.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 1. Skini 'active' klasu sa svih dugmića
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // 2. Dodaj 'active' klasu na dugme koje je kliknuto
+                this.classList.add('active');
+
+                // 3. Uzmi vrednost filtera i pretvori u mala slova
+                const filterValue = this.getAttribute('data-filter').trim().toLowerCase();
+
+                // 4. Prođi kroz sve terene i prikaži/sakrij ih
+                courtItems.forEach(item => {
+                    // Uzmi sport iz baze i pretvori u mala slova
+                    const itemSport = item.getAttribute('data-sport').trim().toLowerCase();
+
+                    if (filterValue === 'svi' || filterValue === itemSport) {
+                        item.style.display = 'block'; // Prikaži
+                    } else {
+                        item.style.display = 'none';  // Sakrij
+                    }
+                });
+            });
+        });
+    }
+});

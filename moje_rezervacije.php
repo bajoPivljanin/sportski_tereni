@@ -1,5 +1,19 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit;
+}
+
 require_once 'inc/header.php';
+require_once 'app/config/db_config.php';
+require_once 'app/classes/Reservation.php';
+
+$reservationObj = new Reservation($pdo);
+$reservation = $reservationObj->getUserReservations($_SESSION['user_id']);
 ?>
 <main class="reservation-section">
     <div class="container">
@@ -22,38 +36,41 @@ require_once 'inc/header.php';
                     </tr>
                 </thead>
                 <tbody>
+                <?php if (empty($rezervacije)): ?>
                     <tr>
-                        <td class="reservation-code">#REV-84920</td>
-                        <td class="reservation-court-name">Centralni Teniski Teren</td>
-                        <td>12.07.2026. u 18:00h</td>
-                        <td>60 min</td>
-                        <td>
-                            <span class="status-badge status-active">Potvrđeno</span>
-                        </td>
-                        <td class="reservation-note text-muted">Potrebni reketi</td>
+                        <td colspan="6" class="text-center py-4">Nemate nijednu rezervaciju.</td>
                     </tr>
-                    
-                    <tr>
-                        <td class="reservation-code">#REV-31049</td>
-                        <td class="reservation-court-name">Fudbalski teren (Veštačka trava)</td>
-                        <td>15.07.2026. u 20:30h</td>
-                        <td>90 min</td>
-                        <td>
-                            <span class="status-badge status-pending">Na čekanju</span>
-                        </td>
-                        <td class="reservation-note text-muted">—</td>
-                    </tr>
+                <?php else: ?>
+                    <?php foreach ($rezervacije as $rez): ?>
+                        <?php
+                        // Razdvajanje datetime kolone na srpski format datuma i vremena
+                        $datum = date('d.m.Y.', strtotime($rez['reservation_datetime']));
+                        $vreme = date('H:i', strtotime($rez['reservation_datetime'])) . 'h';
 
-                    <tr>
-                        <td class="reservation-code">#REV-11042</td>
-                        <td class="reservation-court-name">Padel teren 1</td>
-                        <td>05.07.2026. u 17:00h</td>
-                        <td>30 min</td>
-                        <td>
-                            <span class="status-badge status-cancelled">Otkazano</span>
-                        </td>
-                        <td class="reservation-note text-muted">Loše vreme</td>
-                    </tr>
+                        // Boje za statuse
+                        $statusClass = 'status-pending bg-warning text-dark';
+                        if (strtolower($rez['reservation_status']) === 'potvrđeno' || strtolower($rez['reservation_status']) === 'potvrdjeno') {
+                            $statusClass = 'status-active bg-success text-white';
+                        } elseif (strtolower($rez['reservation_status']) === 'otkazano') {
+                            $statusClass = 'status-cancelled bg-danger text-white';
+                        }
+                        ?>
+                        <tr>
+                            <td class="reservation-code fw-bold"><?php echo htmlspecialchars($rez['reservation_code']); ?></td>
+                            <td class="reservation-court-name"><?php echo htmlspecialchars($rez['court_name']); ?></td>
+                            <td><?php echo $datum; ?> u <?php echo $vreme; ?></td>
+                            <td><?php echo htmlspecialchars($rez['duration_minute']); ?> min</td>
+                            <td>
+                                    <span class="badge rounded-pill <?php echo $statusClass; ?> px-3 py-2">
+                                        <?php echo htmlspecialchars($rez['reservation_status']); ?>
+                                    </span>
+                            </td>
+                            <td class="reservation-note text-muted">
+                                <?php echo !empty($rez['note']) ? htmlspecialchars($rez['note']) : '—'; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
             </table>
         </div>

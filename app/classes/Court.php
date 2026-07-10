@@ -1,5 +1,4 @@
 <?php
-
 class Court {
     private $pdo;
     public function __construct($pdo) {
