@@ -392,3 +392,175 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+// profile.php kod
+
+"use strict";
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Forma za lične podatke
+    const personalForm = document.getElementById('personal-info-form');
+    const personalAlert = document.getElementById('personal-alert-box');
+
+    if (personalForm) {
+        personalForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Simulacija uspešnog čuvanja (ovde kasnije ide tvoj Fetch API/AJAX ka backendu)
+            personalAlert.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 8px;">
+                    Personal information successfully updated!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        });
+    }
+
+    // 2. Forma za promenu lozinke
+    const passwordForm = document.getElementById('security-password-form');
+    const passwordAlert = document.getElementById('password-alert-box');
+
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Regex: Minimum 8 karaktera, bar jedno veliko slovo i bar jedan broj
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            // Validacija jačine lozinke
+            if (!passwordRegex.test(newPassword)) {
+                passwordAlert.innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 8px;">
+                        Password must be at least 8 characters long, contain at least one uppercase letter and one number.
+                    </div>
+                `;
+                return;
+            }
+
+            // Validacija poklapanja lozinki
+            if (newPassword !== confirmPassword) {
+                passwordAlert.innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 8px;">
+                        New passwords do not match!
+                    </div>
+                `;
+                return;
+            }
+
+            // Ako je sve u redu, prikazujemo uspeh
+            passwordAlert.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 8px;">
+                    Password successfully changed!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            passwordForm.reset();
+        });
+    }
+});
+
+// moje_rezervacije akcije
+
+"use strict";
+
+/**
+ * TASK 3: Handles the asynchronous cancellation UI logic.
+ * Changes the status badge to "Otkazano" without page refresh.
+ */
+function cancelBooking(bookingId) {
+  const confirmAction = confirm("Da li ste sigurni da želite da otkažete ovu rezervaciju?");
+  
+  if (confirmAction) {
+    const row = document.getElementById(`booking-row-${bookingId}`);
+    if (row) {
+      const statusCell = row.querySelector('.status-cell');
+      
+      // Update cell content directly to red bootstrap pill badge without reload
+      statusCell.innerHTML = `
+        <span class="badge rounded-pill status-cancelled bg-danger text-white px-3 py-2">
+          Otkazano
+        </span>
+      `;
+      
+      // Disable all action buttons in the row after successful cancellation
+      const buttons = row.querySelectorAll('.action-btn');
+      buttons.forEach(function(btn) {
+        btn.disabled = true;
+      });
+    }
+  }
+}
+
+/**
+ * TASK 4: Handles opening the Bootstrap 5 modal window.
+ * Prefills the input fields with current row data before showing up.
+ */
+function openEditModal(bookingId) {
+  const row = document.getElementById(`booking-row-${bookingId}`);
+  if (!row) {
+    return;
+  }
+
+  // Extract date-time and duration stored inside data-* attributes
+  const datetime = row.querySelector('.reservation-time-cell').getAttribute('data-datetime');
+  const duration = row.querySelector('.reservation-duration-cell').getAttribute('data-duration');
+
+  // Inject extracted data straight into modal input elements
+  document.getElementById('edit-booking-id').value = bookingId;
+  document.getElementById('edit-date-time').value = datetime;
+  document.getElementById('edit-duration').value = duration;
+
+  // Initialize and show the Bootstrap modal window dynamically
+  const modalElement = document.getElementById('edit-booking-modal');
+  const modalInstance = new bootstrap.Modal(modalElement);
+  modalInstance.show();
+}
+
+/**
+ * Modal form submit logic setup
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  const editForm = document.getElementById('edit-booking-form');
+  
+  if (editForm) {
+    editForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const bookingId = document.getElementById('edit-booking-id').value;
+      const newDatetime = document.getElementById('edit-date-time').value;
+      const newDuration = document.getElementById('edit-duration').value;
+      
+      const row = document.getElementById(`booking-row-${bookingId}`);
+      if (row) {
+        // Parse and format chosen local datetime to standard format
+        const dateObject = new Date(newDatetime);
+        const day = String(dateObject.getDate()).padStart(2, '0');
+        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const year = dateObject.getFullYear();
+        const hours = String(dateObject.getHours()).padStart(2, '0');
+        const minutes = String(dateObject.getMinutes()).padStart(2, '0');
+        
+        const formattedDisplay = `${day}.${month}.${year}. u ${hours}:${minutes}h`;
+        
+        // Asynchronously update row display text and values without complete reload
+        const timeCell = row.querySelector('.reservation-time-cell');
+        timeCell.textContent = formattedDisplay;
+        timeCell.setAttribute('data-datetime', newDatetime);
+        
+        const durationCell = row.querySelector('.reservation-duration-cell');
+        durationCell.textContent = `${newDuration} min`;
+        durationCell.setAttribute('data-duration', newDuration);
+        
+        // Safely hide modal instance after dynamic table modification
+        const modalElement = document.getElementById('edit-booking-modal');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+      }
+    });
+  }
+});

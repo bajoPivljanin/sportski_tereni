@@ -28,6 +28,7 @@ if (!empty($data->email) && !empty($data->password)) {
         $_SESSION['user_id'] = $loginResult['user_id'];
         $_SESSION['first_name'] = $loginResult['first_name'];
         $_SESSION['role'] = $loginResult['role'];
+        
 
         http_response_code(200);
         echo json_encode(["message" => "Uspešna prijava."]);

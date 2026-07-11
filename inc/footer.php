@@ -25,8 +25,8 @@
             <div class="col-md-3 mb-4 footer-column"> <h3 class="footer-column-title">Stranice</h3>
                 <ul class="footer-nav-list">
                     <li><a href="index.php" class="footer-nav-link">Pocetna</a></li>
-                    <li><a href="tereni.php" class="footer-nav-link">Tereni</a></li>
-                    <li><a href="kontakt.php" class="footer-nav-link">Kontakt</a></li>
+                    <li><a href="courts.php" class="footer-nav-link">Tereni</a></li>
+                    <li><a href="contact.php" class="footer-nav-link">Kontakt</a></li>
                 </ul>
             </div>
 
