@@ -13,7 +13,7 @@ require_once 'app/config/db_config.php';
 require_once 'app/classes/Reservation.php';
 
 $reservationObj = new Reservation($pdo);
-$reservation = $reservationObj->getUserReservations($_SESSION['user_id']);
+$reservations = $reservationObj->getUserReservations($_SESSION['user_id']);
 ?>
 <main class="reservation-section">
     <div class="container">
@@ -36,12 +36,12 @@ $reservation = $reservationObj->getUserReservations($_SESSION['user_id']);
                     </tr>
                 </thead>
                 <tbody>
-                <?php if (empty($rezervacije)): ?>
+                <?php if (empty($reservations)): ?>
                     <tr>
                         <td colspan="6" class="text-center py-4">Nemate nijednu rezervaciju.</td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($rezervacije as $rez): ?>
+                    <?php foreach ($reservations as $rez): ?>
                         <?php
                         // Razdvajanje datetime kolone na srpski format datuma i vremena
                         $datum = date('d.m.Y.', strtotime($rez['reservation_datetime']));
