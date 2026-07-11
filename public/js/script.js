@@ -260,6 +260,105 @@ if (forgotPasswordForm) {
         }
     });
 }
+// booking form (court reservation)
+document.addEventListener("DOMContentLoaded", function() {
+    const bookCourtBtn = document.getElementById('book-court-btn');
+    const bookingOverlay = document.getElementById('booking-overlay');
+    const bookingClose = document.getElementById('booking-close');
+    const loginOverlay = document.getElementById('login-overlay');
+
+    if (bookCourtBtn) {
+        bookCourtBtn.addEventListener('click', function() {
+            if (bookingOverlay) {
+                bookingOverlay.classList.add('active');
+                document.body.classList.add('no-scroll');
+            } else if (loginOverlay) {
+                loginOverlay.classList.add('active');
+                document.body.classList.add('no-scroll');
+            }
+        });
+    }
+
+    if (bookingClose && bookingOverlay) {
+        bookingClose.addEventListener('click', function() {
+            bookingOverlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+        bookingOverlay.addEventListener('click', function(event) {
+            if (event.target === bookingOverlay) {
+                bookingOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
+
+    const bookingForm = document.getElementById('booking-form');
+    const bookingDurationSelect = document.getElementById('booking-duration');
+    const bookingPriceValue = document.getElementById('booking-price-value');
+
+    if (bookingForm && bookingDurationSelect && bookingPriceValue) {
+        const initialPrice = parseInt(bookingForm.getAttribute('data-initial-price'), 10);
+
+        const updateBookingPrice = function() {
+            const duration = parseInt(bookingDurationSelect.value, 10);
+            const totalPrice = Math.round(initialPrice * (duration / 30));
+            bookingPriceValue.innerText = totalPrice.toLocaleString('sr-RS') + ' rsd';
+        };
+
+        bookingDurationSelect.addEventListener('change', updateBookingPrice);
+        updateBookingPrice();
+
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const bookingMessageDiv = document.getElementById('booking-message');
+            const bookingSubmitBtn = document.getElementById('booking-submit-btn');
+
+            bookingMessageDiv.style.display = 'none';
+            bookingMessageDiv.className = 'alert';
+            bookingSubmitBtn.innerText = 'Slanje...';
+            bookingSubmitBtn.disabled = true;
+
+            const requestData = {
+                court_id: bookingForm.getAttribute('data-court-id'),
+                date: document.getElementById('booking-date').value,
+                time: document.getElementById('booking-time').value,
+                duration: bookingDurationSelect.value
+            };
+
+            try {
+                const response = await fetch('api/create-reservation.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    bookingMessageDiv.innerText = data.message;
+                    bookingMessageDiv.classList.add('alert-success');
+                    bookingMessageDiv.style.display = 'block';
+                    bookingForm.reset();
+                    updateBookingPrice();
+                } else {
+                    bookingMessageDiv.innerText = data.message || "Došlo je do greške.";
+                    bookingMessageDiv.classList.add('alert-danger');
+                    bookingMessageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Greška prilikom rezervacije:", error);
+                bookingMessageDiv.innerText = "Greška na serveru. Pokušajte ponovo.";
+                bookingMessageDiv.classList.add('alert-danger');
+                bookingMessageDiv.style.display = 'block';
+            } finally {
+                bookingSubmitBtn.innerText = 'Potvrdi rezervaciju';
+                bookingSubmitBtn.disabled = false;
+            }
+        });
+    }
+});
+
 // code for filters on courts page
 // Kod za filtere na stranici terena
 document.addEventListener("DOMContentLoaded", function() {

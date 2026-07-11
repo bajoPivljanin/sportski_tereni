@@ -82,6 +82,14 @@ class User {
         }
     }
 
+    public function getUserById($userId) {
+        $sql = "SELECT * FROM users WHERE user_id = :user_id LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['user_id' => $userId]);
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function login($email, $password) {
         try {
             $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";

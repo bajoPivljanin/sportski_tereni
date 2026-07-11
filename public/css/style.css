@@ -234,7 +234,8 @@ body {
 }
 
 .register-overlay,
-.login-overlay {
+.login-overlay,
+.booking-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -248,12 +249,14 @@ body {
 }
 
 .register-overlay.active,
-.login-overlay.active {
+.login-overlay.active,
+.booking-overlay.active {
     display: flex;
 }
 
 .register-modal-box,
-.login-modal-box {
+.login-modal-box,
+.booking-modal-box {
     background-color: white;
     border-radius: 16px;
     padding: 30px;
@@ -263,7 +266,8 @@ body {
 }
 
 .register-modal-header,
-.login-modal-header {
+.login-modal-header,
+.booking-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -271,7 +275,8 @@ body {
 }
 
 .register-form-title,
-.login-form-title {
+.login-form-title,
+.booking-form-title {
     color: black;
     font-size: 24px;
     font-weight: bold;
@@ -279,7 +284,8 @@ body {
 }
 
 .register-close-btn,
-.login-close-btn {
+.login-close-btn,
+.booking-close-btn {
     background: none;
     border: none;
     color: black;
@@ -291,7 +297,8 @@ body {
 }
 
 .register-close-btn:hover,
-.login-close-btn:hover {
+.login-close-btn:hover,
+.booking-close-btn:hover {
     opacity: 1;
 }
 
@@ -352,6 +359,12 @@ body {
 }
 .no-scroll {
     overflow: hidden;
+}
+
+.booking-price-preview {
+    color: #1e3f20;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 /* style za cenovnik */

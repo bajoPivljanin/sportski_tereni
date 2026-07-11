@@ -86,6 +86,48 @@ $putanjaSlike = "img/" . $slikaFajl . ".jpg";
         </div>
     </main>
 
+<?php if (isset($_SESSION['user_id'])): ?>
+    <div id="booking-overlay" class="booking-overlay">
+        <div class="booking-modal-box">
+            <div class="booking-modal-header">
+                <h2 class="booking-form-title">Rezerviši termin</h2>
+                <button type="button" id="booking-close" class="booking-close-btn">&times;</button>
+            </div>
+
+            <div class="booking-modal-body">
+                <form id="booking-form" class="booking-form" data-court-id="<?php echo (int) $court['court_id']; ?>" data-initial-price="<?php echo (int) $court['initial_price']; ?>">
+
+                    <div id="booking-message" class="alert" style="display: none; font-size: 14px; padding: 10px;"></div>
+
+                    <div class="form-group mb-3">
+                        <label for="booking-date" class="form-label">Datum</label>
+                        <input type="date" id="booking-date" name="date" class="form-control login-input" min="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="booking-time" class="form-label">Vreme</label>
+                        <input type="time" id="booking-time" name="time" class="form-control login-input" min="08:00" max="22:59" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="booking-duration" class="form-label">Trajanje</label>
+                        <select id="booking-duration" name="duration" class="form-control login-input" required>
+                            <option value="30">30 minuta</option>
+                            <option value="60">60 minuta</option>
+                            <option value="90">90 minuta</option>
+                            <option value="180">180 minuta</option>
+                        </select>
+                    </div>
+
+                    <p class="booking-price-preview">Ukupna cena: <strong id="booking-price-value"><?php echo number_format($court['initial_price'], 0, ',', '.'); ?> rsd</strong></p>
+
+                    <button type="submit" id="booking-submit-btn" class="login-submit-btn">Potvrdi rezervaciju</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?php
 require_once 'inc/footer.php';
 ?>
